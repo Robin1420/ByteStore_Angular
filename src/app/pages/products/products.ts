@@ -7,12 +7,12 @@ import { Product } from '../../models/products.model';
   selector: 'app-products',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  templateUrl: './products.html',
+  styleUrls: ['./products.css']
 })
-export class ProductsComponent implements OnInit {
+export class Products implements OnInit {
   products: Product[] = [];
-  
+
   constructor(private productsService: ProductsService) {}
 
   ngOnInit(): void {
