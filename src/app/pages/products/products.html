@@ -1,16 +1,74 @@
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-10">
+      <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Descubre Nuestros Productos</h1>
+    </div>
 
-<div class="products-container">
-  <h1 class="products-title">Productos</h1>
-  <div class="products-grid">
-    @for (product of products; track $index) {
-      <div class="product-card">
-        <img [src]="product.image" alt="{{ product.title }}" class="product-image">
-        <div class="product-info">
-          <h2 class="product-title">{{ product.title }}</h2>
-          <p class="product-price">{{ product.price | currency }}</p>
-          <p class="product-description">{{ product.description }}</p>
-        </div>
+    @if (products.length === 0) {
+      <div class="text-center py-20">
+        <p class="text-lg text-gray-600">Cargando productos...</p>
       </div>
     }
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      @for (product of products; track product.id) {
+        <div class="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col h-full">
+          <!-- Imagen del producto -->
+          <div class="relative h-56 bg-gray-50 flex items-center justify-center p-4">
+            <img [src]="product.image" 
+                 [alt]="product.title" 
+                 class="h-full w-full object-contain transition-transform duration-500 group-hover:scale-110">
+          </div>
+          
+          <!-- Contenido de la tarjeta -->
+          <div class="p-5 flex flex-col h-full">
+            <!-- Contenido superior -->
+            <div class="flex-1">
+              <h2 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2" [title]="product.title">
+                {{ product.title }}
+              </h2>
+              
+              @if (product.category) {
+                <span class="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded mb-3">
+                  {{ product.category }}
+                </span>
+              }
+
+              <p class="text-gray-600 text-sm line-clamp-2 mb-3" [title]="product.description">
+                {{ product.description }}
+              </p>
+              <span class="text-yellow-400 text-sm">
+                ★★★★★
+              </span>
+            </div>
+
+            <!-- Sección inferior fija -->
+            <div class="mt-auto">
+              <!-- Precio y rating en la misma línea -->
+              <div class="flex justify-between items-center mb-3">
+                <span class="text-2xl font-bold text-blue-600">
+                  {{ product.price | currency:'USD':'symbol':'1.2-2' }}
+                </span>
+              </div>
+
+              <!-- Botones -->
+              <div class="flex items-center">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium flex-1 mr-2 transition-colors duration-200 flex items-center justify-center">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                  </svg>
+                  Añadir al carrito
+                </button>
+                <button class="p-2.5 text-gray-400 hover:text-blue-600 transition-colors duration-200">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
   </div>
 </div>
